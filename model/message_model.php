@@ -61,6 +61,19 @@ function getUserReceivedMessages(int $userId): array
         } else {
             $message['username'] = 'Inconnu';
         }
+
+       switch ($message['statut']) {
+            case 'non_lu':
+                $message['statutClass'] = 'text-gray-500 bg-gray-100 dark:bg-gray-700 dark:text-gray-100';
+                break;
+            case 'lu':
+                $message['statutClass'] = 'text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100';
+                break;
+            default:
+                $message['statutClass'] = 'Statut inconnu';
+        }
+
+
     }
 
     return $messages;

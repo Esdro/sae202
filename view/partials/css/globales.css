@@ -54,6 +54,10 @@ a {
     --font-family: 'Mainstay', Arial, sans-serif;
     --border-radius-large: 20px;
     --primary-bg-color: rgba(244, 99, 30, 0.33);
+    --color-green-100: oklch(96.2% 0.044 156.743);
+    --color-green-200: oklch(96.2% 0.044 156.743);
+    --color-green-300: oklch(96.2% 0.044 156.743);
+    --color-gray-100: oklch(96.2% 0.044 156.743);
 }
 
 a.go_to_link {

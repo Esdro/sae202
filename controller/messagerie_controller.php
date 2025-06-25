@@ -21,7 +21,7 @@ function index(): void
 
     $adminUsers = getAdminUsers();
 
-    // var_dump( $_SESSION['user'],  $receivedMessages);
+    // var_dump( $receivedMessages);
     // die();
 
     require_once $GLOBALS['partials_dir'] . 'header.php';

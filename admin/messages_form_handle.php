@@ -37,10 +37,14 @@ function sendMessage(array $data): array
 {
     global $dbInstance;
 
-    $query = "INSERT INTO messages (user_id, date_envoi, contenu, destinataire, reply_id) VALUES (:user_id, :date_envoi, :contenu, :destinataire, 0)";
+    $statuts = ['non_lu', 'lu'];
+    $data['statut'] = in_array($data['statut'], $statuts) ? $data['statut'] : 'non_lu';
+    $data['date_envoi'] = date('Y-m-d H:i:s');
+    $query = "INSERT INTO messages (user_id, date_envoi, statut ,contenu, destinataire, reply_id) VALUES (:user_id, :date_envoi, :statut, :contenu, :destinataire, 0)";
     $stmt = $dbInstance->prepare($query);
     $stmt->bindParam(':user_id', $data['user_id']);
     $stmt->bindParam(':date_envoi', $data['date_envoi']);
+    $stmt->bindParam(':statut', $data['statut']);
     $stmt->bindParam(':contenu', $data['contenu']);
     $stmt->bindParam(':destinataire', $data['destinataire']);
 
@@ -59,10 +63,14 @@ function sendReplyMessage(array $data): array
 {
     global $dbInstance;
 
-    $query = "INSERT INTO messages (user_id, date_envoi, contenu, destinataire, reply_id) VALUES (:user_id, :date_envoi, :contenu, :destinataire, :reply_id)";
+    $statuts = ['non_lu', 'lu'];
+    $data['statut'] = in_array($data['statut'], $statuts) ? $data['statut'] : 'non_lu';
+    $data['date_envoi'] = date('Y-m-d H:i:s');
+    $query = "INSERT INTO messages (user_id, date_envoi, statut, contenu, destinataire, reply_id) VALUES (:user_id, :date_envoi, :statut, :contenu, :destinataire, :reply_id)";
     $stmt = $dbInstance->prepare($query);
     $stmt->bindParam(':user_id', $data['user_id']);
     $stmt->bindParam(':date_envoi', $data['date_envoi']);
+    $stmt->bindParam(':statut', $data['statut']);
     $stmt->bindParam(':contenu', $data['contenu']);
     $stmt->bindParam(':destinataire', $data['destinataire']);
     $stmt->bindParam(':reply_id', $data['reply_id']);

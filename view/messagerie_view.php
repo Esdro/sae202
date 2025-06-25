@@ -64,7 +64,7 @@
                             <?php foreach ($receivedMessages as $message): ?>
                                 <tr class="<?= 'non_lu' == $message['statut'] ? 'unread' : 'read'; ?>">
                                     <td><?= htmlspecialchars($message['username']) ?></td>
-                                    <td><?= htmlspecialchars($message['statut']) ?></td>
+                                    <td class="<?= $message['statutClass'] ?>"><?= $message['statut'] == 'lu' ? 'Lu' : 'Non lu' ?></td>
                                     <td class="action-buttons">
                                         <a href="/messagerie/view?id=<?= $message['id'] ?>" class="action-button_view">Voir</a>
 
