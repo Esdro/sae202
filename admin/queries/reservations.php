@@ -28,8 +28,8 @@ function getReservations() {
             $reservation['statut'] = 'Confirmée';
         } elseif ($reservation['is_confirmed'] == 0) {
             $reservation['statutClass'] = 'text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100';
-            $reservation['statut'] = 'En attente de confirmation';
-        } 
+            $reservation['statut'] = 'En attente';
+        }
     }
 
     return $reservations;
