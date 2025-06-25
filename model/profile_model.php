@@ -87,3 +87,37 @@ function getUserProfile(int $userId): ?array
 
     return null; // Aucun profil trouvé pour cet utilisateur
 }
+
+
+function changeUserPassword(int $userId, string $currentPassword, string $newPassword): array
+{
+    global $dbInstance;
+
+    // Vérifier le mot de passe actuel
+    $user = $dbInstance->prepare("SELECT password FROM users WHERE id = :user_id");
+    $user->bindParam(':user_id', $userId);
+    $user->execute();
+    $user = $user->fetch(PDO::FETCH_ASSOC);
+    if (!$user) {
+        return ['success' => false, 'message' => 'Utilisateur non trouvé.'];
+    }
+
+    if (!password_verify($currentPassword, $user['password'])) {
+        return ['success' => false, 'message' => 'Mot de passe actuel incorrect.'];
+    }
+
+    // Hacher le nouveau mot de passe
+    $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+
+    // Mettre à jour le mot de passe de l'utilisateur
+    $query = "UPDATE users SET password = :password WHERE id = :user_id";
+    $stmt = $dbInstance->prepare($query);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':password', $hashedPassword);
+
+    if ($stmt->execute()) {
+        return ['success' => true, 'message' => 'Mot de passe mis à jour avec succès.'];
+    } else {
+        return ['success' => false, 'message' => 'Erreur lors de la mise à jour du mot de passe.'];
+    }
+}

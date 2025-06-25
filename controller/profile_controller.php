@@ -146,3 +146,50 @@ function invitationVerification(): void
         exit;
     }
 }
+
+function change_password(): void
+{
+    // Vérifier si l'utilisateur est connecté
+    if (!isset($_SESSION['user'])) {
+        $_SESSION['errorMessage'] = 'Vous devez être connecté pour changer votre mot de passe.';
+        header('Location: /connexion');
+        exit;
+    }
+
+   if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $userId = $_SESSION['user']['id'];
+        $currentPassword = sanitizeInput($_POST['current_password'] ?? '');
+        $newPassword = sanitizeInput($_POST['new_password'] ?? '');
+        $confirmPassword = sanitizeInput($_POST['confirm_password'] ?? '');
+
+        // Valider les données
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            $_SESSION['errorMessage'] = 'Veuillez remplir tous les champs.';
+            header('Location: /profile/change_password');
+            exit;
+        }
+
+        if ($newPassword !== $confirmPassword) {
+            $_SESSION['errorMessage'] = 'Les nouveaux mots de passe ne correspondent pas.';
+            header('Location: /profile/change_password');
+            exit;
+        }
+
+        // Changer le mot de passe
+        $result = changeUserPassword($userId, $currentPassword, $newPassword);
+
+        if ($result['success']) {
+            $_SESSION['successMessage'] = $result['message'];
+            header('Location: /profile');
+            exit;
+        } else {
+            $_SESSION['errorMessage'] = $result['message'];
+            header('Location: /profile/change_password');
+            exit;
+        }
+    }
+
+    require_once $GLOBALS['partials_dir'] . 'header.php';
+    require_once $GLOBALS['view_dir'] . 'change_password_view.php';
+    require_once $GLOBALS['partials_dir'] . 'footer.php';
+}
