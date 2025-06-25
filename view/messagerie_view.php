@@ -1,5 +1,6 @@
 <div class="messagerie_container">
     <h1 id="concept">Messagerie</h1>
+    <a href="/messagerie/send" class="button_compose_message">Ecrire un message</a>
 
     <div class="flexing">
         <h2>Messages envoyés</h2>
@@ -10,7 +11,7 @@
             <div class="messages_list <?php if (empty($messages)): ?> empty <?php endif; ?>">
                 <?php if (empty($messages)): ?>
                     <p>Aucun message trouvé.</p>
-                    <a href="/messagerie/send" class="button_compose_message">Composer un message</a>
+                    <a href="/messagerie/send" class="button_compose_message">Ecrire un message</a>
 
                 <?php else: ?>
                     <table>
@@ -26,7 +27,7 @@
                                 <tr class="<?= 'non_lu' == $message['statut'] ? 'unread' : 'read'; ?>">
                                     <td><?= htmlspecialchars($message['author']) . " (Vous)" ?></td>
                                     <td><?= htmlspecialchars($message['destinataire']) ?></td>
-                                   
+
                                     <td class="action-buttons">
                                         <a href="/messagerie/view?id=<?= $message['id'] ?>" class="action-button_view">Voir</a>
                                         <a href="/messagerie/delete?id=<?= $message['id'] ?>" class="action-button_delete">Supprimer</a>
@@ -66,7 +67,7 @@
                                     <td><?= htmlspecialchars($message['statut']) ?></td>
                                     <td class="action-buttons">
                                         <a href="/messagerie/view?id=<?= $message['id'] ?>" class="action-button_view">Voir</a>
-                                      
+
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
