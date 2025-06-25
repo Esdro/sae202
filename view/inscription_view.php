@@ -12,10 +12,10 @@
     <form action="/inscription/formHandle" method="post">
 
         <div class="form-control_email">
-            <input type="email" id="email" name="email" required placeholder="Nom">
+            <input type="email" id="email" name="email" required placeholder="E-mail">
         </div>
         <div class="form-control_username">
-            <input type="text" id="username" name="username" required placeholder="E-mail">
+            <input type="text" id="username" name="username" required placeholder="Nom d'utilisateur">
         </div>
 
         <div class="form-control_password">

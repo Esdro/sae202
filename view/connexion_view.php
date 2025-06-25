@@ -12,7 +12,7 @@
     <form action="/connexion/formHandle" method="post">
 
         <div class="form-control_username">
-            <input type="text" id="username" name="username" required placeholder="E-mail">
+            <input type="text" id="username" name="username" required placeholder="Nom d'utilisateur ou e-mail">
         </div>
 
         <div class="form-control_password">
