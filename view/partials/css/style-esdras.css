@@ -188,3 +188,23 @@ a.new_avis_btn {
 .intro{
     margin: 20px 0 !important;
 }
+
+.change_password_container {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 650px;
+    background-color: var(--primary-bg-color);
+    padding: 25px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.change_password_container form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}

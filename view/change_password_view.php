@@ -1,6 +1,6 @@
 <div class="change_password_container">
     <h2>Changer de mot de passe</h2>
-    <form method="post" action="/profile/change_password">
+    <form method="post" action="/profile/change_password" class="form-container">
         <div class="form-group">
             <label for="current_password">Mot de passe actuel:</label>
             <input type="password" id="current_password" name="current_password" required>

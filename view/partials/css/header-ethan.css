@@ -1021,7 +1021,7 @@ th, td {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center; /* ✅ Centre les éléments horizontalement */
+  justify-content: space-between; /* ✅ Centre les éléments horizontalement */
   gap: 24px;
   margin-bottom: 16px;
 }
