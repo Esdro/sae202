@@ -57,5 +57,12 @@
     <a href="/avis/add" class="avis-button">Laisser un avis</a>
   </div>
 
-
+  <!--
+  <section class="newsletter-section">
+    <h2 id="newsletter">Newsletters</h2>
+    <div class="newsletter-button-container">
+      <button class="newsletter-button-contenu">Inscrivez-vous pour recevoir nos dernières actualités.</button>
+    </div>
+  </section>
+-->
 </div>
