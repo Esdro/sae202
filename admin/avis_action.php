@@ -1,4 +1,9 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}elseif (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 
 require_once "queries/avis.php";
@@ -8,7 +13,7 @@ $action = $_GET['action'] ?? '';
 $id = $_GET['id'] ?? '';
 
 if (empty($action) || empty($id)) {
-    $_SESSION['flash']['message'] = "Action ou ID manquant.";
+    $_SESSION['errorMessage'] = "Action ou ID manquant.";
     header("Location: avis_manage.php");
     exit();
 }
@@ -24,9 +29,9 @@ function approveComment($id)
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        $_SESSION['flash']['message'] = "Commentaire approuvé avec succès.";
+        $_SESSION['successMessage'] = "Commentaire approuvé avec succès.";
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors de l'approbation du commentaire.";
+        $_SESSION['errorMessage'] = "Erreur lors de l'approbation du commentaire.";
     }
 
 
@@ -44,9 +49,9 @@ function disapproveComment($id)
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        $_SESSION['flash']['message'] = "Commentaire rejeté avec succès.";
+        $_SESSION['successMessage'] = "Commentaire rejeté avec succès.";
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors du rejet du commentaire.";
+        $_SESSION['errorMessage'] = "Erreur lors du rejet du commentaire.";
     }
 
     header("Location: avis_manage.php");
@@ -62,9 +67,9 @@ function rejectComment($id)
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        $_SESSION['flash']['message'] = "Commentaire rejeté avec succès.";
+        $_SESSION['successMessage'] = "Commentaire rejeté avec succès.";
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors du rejet du commentaire.";
+        $_SESSION['errorMessage'] = "Erreur lors du rejet du commentaire.";
     }
 
     header("Location: avis_manage.php");

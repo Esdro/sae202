@@ -1,4 +1,10 @@
 <?php
+// vérifie si la session est démarrée, sinon démarre une session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}elseif (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 $pageTitle = 'Administration';
 $pageDescription = 'Page d\'administration du site de réservation de cinéma.';
@@ -9,7 +15,39 @@ require_once "queries/reservations.php";
 require_once "queries/messages.php";
 require_once "queries/events.php";
 
+// var_dump($_SESSION);
+// die;
+// vérifie si un utilsateur est connecté et à le role d'admin
+if (!isset($_SESSION['user'])) {
+    $_SESSION['errorMessage'] = 'Vous devez être connecté en tant qu\'administrateur pour accéder à cette page.';
+    //mettre en session l'url de la page actuelle pour rediriger l'utilisateur après la connexion
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'] ?? '/admin/index.php';
+    // Redirige vers la page de connexion
+    header('Location: /connexion');
+    exit;
+}
+if ($_SESSION['user']['role'] !== 'admin') {
+    $_SESSION['errorMessage'] = 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.';
+    // Redirige vers la page d'accueil ou une autre page appropriée
+    header('Location: /');
+    exit;
+}
+
+
+
+
+
 $event = getEventBySearch("Disco Murder");
+
+if (!$event) {
+
+}
+  
+
+
+
+
+
 
 require_once __DIR__ . '/partials/header.php';
 

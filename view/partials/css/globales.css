@@ -116,6 +116,16 @@ li {
     margin: auto;
 }
 
+.flash-messages{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+
+}
+
+
 .flash-messages .info-message {
     background-color: white;
     color: var(--text-color);

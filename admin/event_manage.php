@@ -1,13 +1,20 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}elseif (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once "queries/events.php";
     $result = updateEventInfos($_POST);
     
     if ($result) {
-        header("Location: /admin/event_manage.php?success=1");
+        $_SESSION['successMessage'] = "Événement mis à jour avec succès.";
+        header("Location: /admin/event_manage.php");
         exit;
     } else {
+        $_SESSION['errorMessage'] = "Une erreur s'est produite lors de la mise à jour de l'événement.";
         $error = "Une erreur s'est produite lors de la mise à jour de l'événement.";
     }
 }

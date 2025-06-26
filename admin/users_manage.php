@@ -27,9 +27,9 @@ require_once __DIR__ . '/partials/header.php';
                     <td class="px-4 py-3"><?= htmlspecialchars($user['username']) ?></td>
                     <td class="px-4 py-3"><?= htmlspecialchars($user['email']) ?></td>
                     <td class="px-4 py-3"><?= htmlspecialchars($user['role']) ?></td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 flex space-x-4 items-center">
                         <a href="/admin/user_edit.php?id=<?= htmlspecialchars($user['id']) ?>" class="text-blue-600 hover:underline">Modifier</a>
-                        <a href="/admin/user_delete.php?id=<?= htmlspecialchars($user['id']) ?>" class="text-red-600 hover:underline">Supprimer</a>
+                        <a href="/admin/user_action.php?action=delete&id=<?= htmlspecialchars($user['id']) ?>" class="text-red-600 hover:underline">Supprimer</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

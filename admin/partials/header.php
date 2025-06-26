@@ -1,5 +1,10 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}elseif (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 require_once dirname(__DIR__, 2) . "/conf/conf.inc.php";
 ?>
 
@@ -106,4 +111,4 @@ require_once dirname(__DIR__, 2) . "/conf/conf.inc.php";
                 <?= $pageTitle ?? 'Page d\'administration' ?>
             </h2>
 
-                <?php include_once 'flash-notif.php'; ?>
+                <?php include 'flash-notif.php'; ?>

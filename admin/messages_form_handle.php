@@ -1,4 +1,9 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}elseif (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 require_once dirname(__DIR__, 1) . "/helpers/form_sanitizer.php";
 
@@ -14,11 +19,11 @@ $isReplying = isset($_POST['reply_id']) && !empty($_POST['reply_id']);
     }
 
     if ($result['success']) {
-        $_SESSION['flash']['message'] = $result['message'];
+        $_SESSION['successMessage'] = $result['message'];
         header("Location: messages_manage.php");
         exit;
     } else {
-        $_SESSION['flash']['message'] = $result['message'];
+        $_SESSION['errorMessage'] = $result['message'];
         header("Location: messages_form.php");
         exit;
     }
@@ -27,7 +32,7 @@ $isReplying = isset($_POST['reply_id']) && !empty($_POST['reply_id']);
 
   
 } else {
-    $_SESSION['flash']['message'] = "Méthode de requête non autorisée.";
+    $_SESSION['errorMessage'] = "Méthode de requête non autorisée.";
     header("Location: messages_manage.php");
     exit();
 }
@@ -49,11 +54,11 @@ function sendMessage(array $data): array
     $stmt->bindParam(':destinataire', $data['destinataire']);
 
     if ($stmt->execute()) {
-     $_SESSION['flash']['message'] = "Message envoyé avec succès.";
+        $_SESSION['successMessage'] = "Message envoyé avec succès.";
         header("Location: messages_manage.php");
         exit;
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors de l'envoi du message.";
+        $_SESSION['errorMessage'] = "Erreur lors de l'envoi du message.";
         header("Location: messages_form.php");
         exit;
     }
@@ -76,11 +81,11 @@ function sendReplyMessage(array $data): array
     $stmt->bindParam(':reply_id', $data['reply_id']);
 
     if ($stmt->execute()) {
-        $_SESSION['flash']['message'] = "Réponse envoyée avec succès.";
+        $_SESSION['successMessage'] = "Réponse envoyée avec succès.";
         header("Location: messages_manage.php");
         exit;
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors de l'envoi de la réponse.";
+        $_SESSION['errorMessage'] = "Erreur lors de l'envoi de la réponse.";
         header("Location: messages_form.php");
         exit;
     }

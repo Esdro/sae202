@@ -61,10 +61,19 @@ function formHandle(): void
 
             $_SESSION['user'] = $response['user'];
             $_SESSION['successMessage'] = 'Connexion réussie.';
-            header('Location: /', true, 302);
+
+            // Rediriger vers la page d'accueil ou la page demandée
+            if (isset($_SESSION['redirect_after_login'])) {
+                $redirectUrl = $_SESSION['redirect_after_login'];
+                unset($_SESSION['redirect_after_login']); // Supprimer l'URL de redirection après utilisation
+            } else {
+                $redirectUrl = '/'; // Page d'accueil par défaut
+            }
+
+            header('Location: ' . $redirectUrl, true, 302);
             exit;
         } else {
-            $_SESSION['errorMessage'] =  $response['message'];;
+            $_SESSION['errorMessage'] =  $response['message'];
             header('Location: /connexion');
             exit;
         }

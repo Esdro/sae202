@@ -6,7 +6,7 @@ $action = $_GET['action'] ?? '';
 $id = $_GET['id'] ?? '';
 
 if (empty($action) || empty($id)) {
-    $_SESSION['flash']['message'] = "Action ou ID manquant.";
+    $_SESSION['errorMessage'] = "Action ou ID manquant.";
     header("Location: reservations_manage.php");
     exit();
 }
@@ -25,11 +25,14 @@ function cancelReservation(int $reservationId): void
     $stmt->bindParam(':reservation_id', $reservationId);
 
     if ($stmt->execute()) {
-        $_SESSION['flash']['message'] = "Réservation annulée avec succès.";
+        $_SESSION['successMessage'] = "Réservation annulée avec succès.";
+        header("Location: reservations_manage.php");
+        exit();
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors de l'annulation de la réservation.";
+        $_SESSION['errorMessage'] = "Erreur lors de l'annulation de la réservation.";
+        header("Location: reservations_manage.php");
+        exit();
     }
-    header("Location: reservations_manage.php");
     exit();
 }
 
@@ -44,9 +47,13 @@ function confirmReservation(int $reservationId): void
     $stmt->bindParam(':reservation_id', $reservationId);
 
     if ($stmt->execute()) {
-        $_SESSION['flash']['message'] = "Réservation confirmée avec succès.";
+        $_SESSION['successMessage'] = "Réservation confirmée avec succès.";
+          header("Location: reservations_manage.php");
+        exit();
     } else {
-        $_SESSION['flash']['message'] = "Erreur lors de la confirmation de la réservation.";
+        $_SESSION['errorMessage'] = "Erreur lors de la confirmation de la réservation.";
+          header("Location: reservations_manage.php");
+        exit();
     }
     header("Location: reservations_manage.php");
     exit();
@@ -61,7 +68,7 @@ switch ($action) {
         cancelReservation($id);
         break;
     default:
-        $_SESSION['flash']['message'] = "Action invalide.";
+        $_SESSION['errorMessage'] = "Action invalide.";
         header("Location: reservations_manage.php");
         exit();
 }

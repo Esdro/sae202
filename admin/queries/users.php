@@ -43,15 +43,18 @@ function createUser($username, $password, $email): bool
     return $stmt->execute();
 }
 
-function updateUser($id, $username, $email): bool
+function updateUser($id, $username, $email, ?string $role): bool
 {
     global $dbInstance;
 
-    $query = "UPDATE users SET username = :username, email = :email WHERE id = :id";
+    $query = "UPDATE users SET username = :username, email = :email" . ($role ? ", role = :role" : "") . " WHERE id = :id";
     $stmt = $dbInstance->prepare($query);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
     $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    if ($role) {
+        $stmt->bindValue(':role', $role, PDO::PARAM_STR);
+    }
 
     return $stmt->execute();
 }
