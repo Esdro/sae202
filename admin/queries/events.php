@@ -3,7 +3,7 @@
 require_once dirname(__DIR__, 2) . "/conf/conf.inc.php";
 
 
-function getEventBySearch($search = "Disco Murder" )
+function getEventBySearch($search = "Disco Murder" ): ?array
 {
     global $dbInstance;
 
@@ -15,7 +15,7 @@ function getEventBySearch($search = "Disco Murder" )
     return $stmt->fetchAll(PDO::FETCH_ASSOC)[0] ?? null;
 }
 
-function updateEventInfos( $data)
+function updateEventInfos( $data): bool
 {
     global $dbInstance;
 
